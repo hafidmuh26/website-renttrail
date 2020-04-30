@@ -15,13 +15,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles";
 
-class ForgotPassword extends Component {
+class NewPassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
   }
 
+  //method2
   onclick = () => {
     return <Link to="/home" />;
   };
@@ -48,11 +49,23 @@ class ForgotPassword extends Component {
               margin="normal"
               required
               fullWidth
-              name="email"
-              label="Email"
-              type="email"
-              id="email"
-              autoComplete="email"
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="password"
+              autoFocus={true}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              autoComplete="confirmPassword"
               autoFocus={true}
             />
             <Button
@@ -66,14 +79,9 @@ class ForgotPassword extends Component {
               {"Submit"}
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link to="/register" variant="body2">
-                  {"Register"}
-                </Link>
-              </Grid>
               <Grid item>
-                <Link to="/newPassword" variant="body2">
-                  ceritanya disubmit
+                <Link to="/login" variant="body2">
+                  {"Login"}
                 </Link>
               </Grid>
             </Grid>
@@ -87,11 +95,11 @@ class ForgotPassword extends Component {
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
-          </Typography>
+          </Typography>{" "}
         </Box>
       </Container>
     );
   }
 }
 
-export default withStyles(styles, { withTheme: true })(ForgotPassword);
+export default withStyles(styles, { withTheme: true })(NewPassword);

@@ -1,8 +1,6 @@
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     display: "flex",
   },
@@ -17,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    background: "#57BCFF",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -24,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
@@ -33,6 +31,29 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-}));
+  head: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingTop: 20,
+    fontWeight: "bold",
+  },
+  list: {
+    fontSize: 20,
+    paddingLeft: 20,
+    color: "white",
+    backgroundColor: "#57BCFF",
+    borderRadius: 10,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  link: {
+    textDecoration: "none",
+  },
+  linkList: {
+    marginBottom: -16,
+    color: "black",
+  },
+});
 
-export default useStyles;
+export default styles;

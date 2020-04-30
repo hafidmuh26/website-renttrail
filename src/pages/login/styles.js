@@ -1,11 +1,10 @@
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: 30,
   },
   avatar: {
     margin: theme.spacing(1),
@@ -17,8 +16,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    marginTop: 10,
+    marginBottom: 10,
   },
-}));
+  grid: {
+    marginTop: 10,
+  },
+  googleIcon: {
+    width: 30,
+    marginRight: theme.spacing(3),
+  },
+});
 
-export default useStyles;
+export default styles;

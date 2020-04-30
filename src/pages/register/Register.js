@@ -15,23 +15,22 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles";
 
-class ForgotPassword extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {};
   }
 
-  onclick = () => {
-    return <Link to="/home" />;
-  };
-
+  // method2
+  // ...
   render() {
     const { classes } = this.props;
 
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
         <Card className={classes.paper}>
           <Avatar className={classes.avatar}>
             <FilterHdrIcon />
@@ -40,7 +39,7 @@ class ForgotPassword extends Component {
             {"Rent Trail"}
           </Typography>
           <Typography component="h1" variant="h6">
-            {"Forgot password"}
+            {"Register"}
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -48,38 +47,51 @@ class ForgotPassword extends Component {
               margin="normal"
               required
               fullWidth
-              name="email"
-              label="Email"
-              type="email"
               id="email"
+              label="Email"
+              name="email"
               autoComplete="email"
               autoFocus={true}
             />
-            <Button
-              type="submit"
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
               fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              // onClick={this.onclick}
-            >
-              {"Submit"}
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="/register" variant="body2">
-                  {"Register"}
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/newPassword" variant="body2">
-                  ceritanya disubmit
-                </Link>
-              </Grid>
-            </Grid>
+              id="phone"
+              label="Phone"
+              name="phone"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
           </form>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            {"Register"}
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link to="/login" variant="body2">
+                {"Login"}
+              </Link>
+            </Grid>
+          </Grid>
         </Card>
-        <Box mt={8}>
+        <Box mt={5}>
           <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
             <Link color="inherit" to="/login">
@@ -94,4 +106,4 @@ class ForgotPassword extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(ForgotPassword);
+export default withStyles(styles, { withTheme: true })(Register);

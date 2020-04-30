@@ -1,9 +1,9 @@
 import { withStyles } from "@material-ui/core";
 import React, { Component } from "react";
-import DrawerNav from "../../components/drawer";
+import DrawerNav from "../../../../components/drawer";
 import styles from "./styles";
 
-class Dashboard extends Component {
+class ReportsSpecific extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +19,7 @@ class Dashboard extends Component {
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Dashboard"}</h1>
+            <h1>{"Reports Specific Partner"}</h1>
           </div>
         </main>
       </div>
@@ -27,4 +27,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(Dashboard);
+export default withStyles(styles, { withTheme: true })(ReportsSpecific);
