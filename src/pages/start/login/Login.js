@@ -63,7 +63,7 @@ class Login extends Component {
               autoComplete="current-password"
             />
             <Button
-              type="submit"
+              href={"/home"}
               fullWidth
               variant="contained"
               color="primary"
@@ -73,14 +73,14 @@ class Login extends Component {
             </Button>
             <Typography align="center">or</Typography>
             <Button
-              type="submit"
+              href={"/home"}
               fullWidth
               variant="contained"
               color="inherit"
               className={classes.submit}
             >
               <img
-                src={require("../../assets/google.svg")}
+                src={require("./google.svg")}
                 alt="googleIcon"
                 className={classes.googleIcon}
               />
@@ -90,11 +90,6 @@ class Login extends Component {
               <Grid item xs>
                 <Link to="/forgotPassword" variant="body2">
                   {"Forgot password?"}
-                </Link>
-              </Grid>
-              <Grid item xs>
-                <Link to="/home" variant="body2">
-                  Ceritanya login
                 </Link>
               </Grid>
               <Grid item>

@@ -13,6 +13,10 @@ const styles = (theme) => ({
     padding: theme.spacing(5),
     marginTop: theme.spacing(5),
   },
+  button: {
+    backgound: "black",
+    color: "white",
+  },
 });
 
 export default styles;

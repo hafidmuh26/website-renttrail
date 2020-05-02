@@ -24,7 +24,7 @@ class DrawerComp extends Component {
         <List>
           <Link to="/home" className={classes.link}>
             <ListItem className={classes.list}>
-              <HomeIcon className={classes.icon} />
+              <HomeIcon className={classes.iconss} />
               {"Home"}
             </ListItem>
           </Link>
@@ -32,12 +32,12 @@ class DrawerComp extends Component {
 
         <List>
           <ListItem className={classes.list}>
-            <PersonIcon className={classes.icon} />
+            <PersonIcon className={classes.iconss} />
             {"Partner"}
           </ListItem>
           {partnerNavs.map((nav, index) => (
-            <Link to={nav.path} className={classes.link}>
-              <ListItem button key={index} className={classes.linkList}>
+            <Link to={nav.path} key={index} className={classes.link}>
+              <ListItem button className={classes.linkList}>
                 <ListItemText primary={nav.text} />
               </ListItem>
             </Link>
@@ -50,8 +50,8 @@ class DrawerComp extends Component {
             {"User"}
           </ListItem>
           {userNavs.map((nav, index) => (
-            <Link to={nav.path} className={classes.link}>
-              <ListItem button key={index} className={classes.linkList}>
+            <Link to={nav.path} key={index} className={classes.link}>
+              <ListItem button className={classes.linkList}>
                 <ListItemText primary={nav.text} />
               </ListItem>
             </Link>

@@ -44,7 +44,7 @@ const styles = (theme) => ({
     backgroundColor: "#57BCFF",
     borderRadius: 10,
   },
-  icon: {
+  iconss: {
     marginRight: 10,
   },
   link: {
