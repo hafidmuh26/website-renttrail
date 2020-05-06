@@ -44,15 +44,11 @@ const styles = (theme) => ({
     backgroundColor: "#57BCFF",
     borderRadius: 10,
   },
-  iconss: {
+  icon: {
     marginRight: 10,
   },
   link: {
     textDecoration: "none",
-  },
-  linkList: {
-    marginBottom: -16,
-    color: "black",
   },
 });
 

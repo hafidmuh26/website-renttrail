@@ -1,14 +1,14 @@
 import {
-  withStyles,
   Avatar,
   Box,
   Button,
+  Card,
   Container,
   CssBaseline,
   Grid,
   TextField,
   Typography,
-  Card,
+  withStyles,
 } from "@material-ui/core";
 import FilterHdrIcon from "@material-ui/icons/FilterHdr";
 import React, { Component } from "react";
@@ -63,7 +63,7 @@ class Login extends Component {
               autoComplete="current-password"
             />
             <Button
-              href={"/home"}
+              href={"/transaction"}
               fullWidth
               variant="contained"
               color="primary"
@@ -71,21 +71,7 @@ class Login extends Component {
             >
               {"Login"}
             </Button>
-            <Typography align="center">or</Typography>
-            <Button
-              href={"/home"}
-              fullWidth
-              variant="contained"
-              color="inherit"
-              className={classes.submit}
-            >
-              <img
-                src={require("./google.svg")}
-                alt="googleIcon"
-                className={classes.googleIcon}
-              />
-              {"Login with Google"}
-            </Button>
+
             <Grid container className={classes.grid}>
               <Grid item xs>
                 <Link to="/forgotPassword" variant="body2">

@@ -1,35 +1,35 @@
 import {
-  FIND_PARTNERS_REQUEST,
-  FIND_PARTNERS_SUCCESS,
-  FIND_PARTNERS_FAILURE,
-  FIND_PARTNER_REQUEST,
-  FIND_PARTNER_SUCCESS,
-  FIND_PARTNER_FAILURE,
-  DELETE_PARTNER_REQUEST,
-  DELETE_PARTNER_SUCCESS,
-  DELETE_PARTNER_FAILURE,
-  SAVE_PARTNER_REQUEST,
-  SAVE_PARTNER_SUCCESS,
-  SAVE_PARTNER_FAILURE,
-} from "../constants/partners";
+  DELETE_USER_FAILURE,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  FIND_USERS_FAILURE,
+  FIND_USERS_REQUEST,
+  FIND_USERS_SUCCESS,
+  FIND_USER_FAILURE,
+  FIND_USER_REQUEST,
+  FIND_USER_SUCCESS,
+  SAVE_USER_FAILURE,
+  SAVE_USER_REQUEST,
+  SAVE_USER_SUCCESS,
+} from "../constants/users";
 
 const defaultState = { data: null, loading: false, error: null };
 
-export function findPartners(state = defaultState, action) {
+export function findUsers(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNERS_REQUEST:
+    case FIND_USERS_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNERS_SUCCESS:
+    case FIND_USERS_SUCCESS:
       return {
         data: action.data,
         loading: false,
         error: null,
       };
-    case FIND_PARTNERS_FAILURE:
+    case FIND_USERS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -40,21 +40,21 @@ export function findPartners(state = defaultState, action) {
   }
 }
 
-export function findPartnerById(state = defaultState, action) {
+export function findUserById(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNER_REQUEST:
+    case FIND_USER_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNER_SUCCESS:
+    case FIND_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case FIND_PARTNER_FAILURE:
+    case FIND_USER_FAILURE:
       return {
         ...state,
         loading: false,
@@ -65,21 +65,21 @@ export function findPartnerById(state = defaultState, action) {
   }
 }
 
-export function deletePartnerById(state = defaultState, action) {
+export function deleteUserById(state = defaultState, action) {
   switch (action.type) {
-    case DELETE_PARTNER_REQUEST:
+    case DELETE_USER_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case DELETE_PARTNER_SUCCESS:
+    case DELETE_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case DELETE_PARTNER_FAILURE:
+    case DELETE_USER_FAILURE:
       return {
         ...state,
         loading: false,
@@ -90,21 +90,21 @@ export function deletePartnerById(state = defaultState, action) {
   }
 }
 
-export function savePartner(state = defaultState, action) {
+export function saveUser(state = defaultState, action) {
   switch (action.type) {
-    case SAVE_PARTNER_REQUEST:
+    case SAVE_USER_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case SAVE_PARTNER_SUCCESS:
+    case SAVE_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case SAVE_PARTNER_FAILURE:
+    case SAVE_USER_FAILURE:
       return {
         ...state,
         loading: false,

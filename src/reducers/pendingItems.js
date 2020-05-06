@@ -1,35 +1,85 @@
 import {
-  FIND_PARTNERS_REQUEST,
-  FIND_PARTNERS_SUCCESS,
-  FIND_PARTNERS_FAILURE,
-  FIND_PARTNER_REQUEST,
-  FIND_PARTNER_SUCCESS,
-  FIND_PARTNER_FAILURE,
-  DELETE_PARTNER_REQUEST,
-  DELETE_PARTNER_SUCCESS,
-  DELETE_PARTNER_FAILURE,
-  SAVE_PARTNER_REQUEST,
-  SAVE_PARTNER_SUCCESS,
-  SAVE_PARTNER_FAILURE,
-} from "../constants/partners";
+  DELETE_PENDINGITEM_FAILURE,
+  DELETE_PENDINGITEM_REQUEST,
+  DELETE_PENDINGITEM_SUCCESS,
+  FIND_PENDINGITEMS_FAILURE,
+  FIND_PENDINGITEMS_REQUEST,
+  FIND_PENDINGITEMS_SUCCESS,
+  FIND_PENDINGITEM_FAILURE,
+  FIND_PENDINGITEM_REQUEST,
+  FIND_PENDINGITEM_SUCCESS,
+  SAVE_PENDINGITEM_FAILURE,
+  SAVE_PENDINGITEM_REQUEST,
+  SAVE_PENDINGITEM_SUCCESS,
+} from "../constants/pendingItems";
 
 const defaultState = { data: null, loading: false, error: null };
 
-export function findPartners(state = defaultState, action) {
+export function deletePendingItemById(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNERS_REQUEST:
+    case DELETE_PENDINGITEM_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNERS_SUCCESS:
+    case DELETE_PENDINGITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case DELETE_PENDINGITEM_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}
+
+export function findPendingItemById(state = defaultState, action) {
+  switch (action.type) {
+    case FIND_PENDINGITEM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FIND_PENDINGITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case FIND_PENDINGITEM_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}
+
+export function findPendingItems(state = defaultState, action) {
+  switch (action.type) {
+    case FIND_PENDINGITEMS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FIND_PENDINGITEMS_SUCCESS:
       return {
         data: action.data,
         loading: false,
         error: null,
       };
-    case FIND_PARTNERS_FAILURE:
+    case FIND_PENDINGITEMS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -40,71 +90,21 @@ export function findPartners(state = defaultState, action) {
   }
 }
 
-export function findPartnerById(state = defaultState, action) {
+export function savePendingItem(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNER_REQUEST:
+    case SAVE_PENDINGITEM_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNER_SUCCESS:
+    case SAVE_PENDINGITEM_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case FIND_PARTNER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return state;
-  }
-}
-
-export function deletePartnerById(state = defaultState, action) {
-  switch (action.type) {
-    case DELETE_PARTNER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case DELETE_PARTNER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-      };
-    case DELETE_PARTNER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return state;
-  }
-}
-
-export function savePartner(state = defaultState, action) {
-  switch (action.type) {
-    case SAVE_PARTNER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case SAVE_PARTNER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-      };
-    case SAVE_PARTNER_FAILURE:
+    case SAVE_PENDINGITEM_FAILURE:
       return {
         ...state,
         loading: false,

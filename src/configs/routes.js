@@ -1,25 +1,20 @@
-import Login from "../pages/start/login";
-import Register from "../pages/start/register";
-import ForgotPassword from "../pages/start/forgotPassword";
-import Dashboard from "../pages/dashboard";
+import Charges from "../pages/charges";
 import ErrorPage from "../pages/errorPage";
+import Items from "../pages/items/items";
+import ItemsDetil from "../pages/items/itemsDetil";
+import PartnerDetil from "../pages/partner/partnerDetil";
+import Partners from "../pages/partner/partners";
+import PendingItems from "../pages/pendingItems/pendingItems";
+import PendingItemsDetil from "../pages/pendingItems/pendingItemsDetil";
+import RentDetil from "../pages/rent/rentDetil";
+import Rents from "../pages/rent/rents";
+import ForgotPassword from "../pages/start/forgotPassword";
+import Login from "../pages/start/login";
 import NewPassword from "../pages/start/newPassword";
-import Partners from "../pages/partner/partner/partners";
-import Items from "../pages/partner/items/items";
-import ItemsPending from "../pages/partner/itemsPending/itemsPending";
-import Users from "../pages/user/user/users";
-import ReportsUsr from "../pages/user/report/reports";
-import ReportsSpecificUsr from "../pages/user/report/reportsSpecific";
-import ReportsDetilUsr from "../pages/user/report/reportDetil";
-import UsersDetil from "../pages/user/user/userDetil";
-import ReportsPrtn from "../pages/partner/report/reports";
-import ReportsSpecificPrtn from "../pages/partner/report/reportsSpecific";
-import ReportsDetilPrtn from "../pages/partner/report/reportDetil";
-import PartnerDetil from "../pages/partner/partner/partnerDetil";
-import ItemsDetil from "../pages/partner/items/itemsDetil";
-import ItemsSpecific from "../pages/partner/items/itemsSpecific";
-import ItemsPendingDetil from "../pages/partner/itemsPending/itemsPendingDetil";
-import ItemsPendingSpecific from "../pages/partner/itemsPending/itemsPendingSpecific/ItemsPendingSpecific";
+import Register from "../pages/start/register";
+import Transaction from "../pages/transaction/transactions";
+import UsersDetil from "../pages/user/userDetil";
+import Users from "../pages/user/users";
 
 const routes = [
   {
@@ -44,8 +39,8 @@ const routes = [
   },
 
   {
-    path: "/home",
-    component: Dashboard,
+    path: "/transaction",
+    component: Transaction,
   },
 
   {
@@ -53,61 +48,41 @@ const routes = [
     component: Partners,
   },
   {
-    path: "/partners/items",
+    path: "/partners/:id",
+    component: PartnerDetil,
+  },
+  {
+    path: "/pendings",
+    component: PendingItems,
+  },
+  {
+    path: "/pendings/:id",
+    component: PendingItemsDetil,
+  },
+  {
+    path: "/items",
     component: Items,
   },
   {
-    path: "/partners/items/specific/:id",
-    component: ItemsSpecific,
-  },
-  {
-    path: "/partners/items/:id",
+    path: "/items/:id",
     component: ItemsDetil,
   },
   {
-    path: "/partners/items-pending",
-    component: ItemsPending,
+    path: "/rents",
+    component: Rents,
   },
   {
-    path: "/partners/items-pending/specific/:id",
-    component: ItemsPendingSpecific,
+    path: "/rents/:id",
+    component: RentDetil,
   },
   {
-    path: "/partners/items-pending/:id",
-    component: ItemsPendingDetil,
-  },
-  {
-    path: "/partners/reports",
-    component: ReportsPrtn,
-  },
-  {
-    path: "/partners/reports/specific/:id",
-    component: ReportsSpecificPrtn,
-  },
-  {
-    path: "/partners/reports/:id",
-    component: ReportsDetilPrtn,
-  },
-  {
-    path: "/partners/:id",
-    component: PartnerDetil,
+    path: "/charges",
+    component: Charges,
   },
 
   {
     path: "/users",
     component: Users,
-  },
-  {
-    path: "/users/reports",
-    component: ReportsUsr,
-  },
-  {
-    path: "/users/reports/specific/:id",
-    component: ReportsSpecificUsr,
-  },
-  {
-    path: "/users/reports/:id",
-    component: ReportsDetilUsr,
   },
   {
     path: "/users/:id",

@@ -1,35 +1,85 @@
 import {
-  FIND_PARTNERS_REQUEST,
-  FIND_PARTNERS_SUCCESS,
-  FIND_PARTNERS_FAILURE,
-  FIND_PARTNER_REQUEST,
-  FIND_PARTNER_SUCCESS,
-  FIND_PARTNER_FAILURE,
-  DELETE_PARTNER_REQUEST,
-  DELETE_PARTNER_SUCCESS,
-  DELETE_PARTNER_FAILURE,
-  SAVE_PARTNER_REQUEST,
-  SAVE_PARTNER_SUCCESS,
-  SAVE_PARTNER_FAILURE,
-} from "../constants/partners";
+  DELETE_ITEM_FAILURE,
+  DELETE_ITEM_REQUEST,
+  DELETE_ITEM_SUCCESS,
+  FIND_ITEMS_FAILURE,
+  FIND_ITEMS_REQUEST,
+  FIND_ITEMS_SUCCESS,
+  FIND_ITEM_FAILURE,
+  FIND_ITEM_REQUEST,
+  FIND_ITEM_SUCCESS,
+  SAVE_ITEM_FAILURE,
+  SAVE_ITEM_REQUEST,
+  SAVE_ITEM_SUCCESS,
+} from "../constants/items";
 
 const defaultState = { data: null, loading: false, error: null };
 
-export function findPartners(state = defaultState, action) {
+export function deleteItemById(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNERS_REQUEST:
+    case DELETE_ITEM_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNERS_SUCCESS:
+    case DELETE_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case DELETE_ITEM_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}
+
+export function findItemById(state = defaultState, action) {
+  switch (action.type) {
+    case FIND_ITEM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FIND_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case FIND_ITEM_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}
+
+export function findItems(state = defaultState, action) {
+  switch (action.type) {
+    case FIND_ITEMS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FIND_ITEMS_SUCCESS:
       return {
         data: action.data,
         loading: false,
         error: null,
       };
-    case FIND_PARTNERS_FAILURE:
+    case FIND_ITEMS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -40,71 +90,21 @@ export function findPartners(state = defaultState, action) {
   }
 }
 
-export function findPartnerById(state = defaultState, action) {
+export function saveItem(state = defaultState, action) {
   switch (action.type) {
-    case FIND_PARTNER_REQUEST:
+    case SAVE_ITEM_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FIND_PARTNER_SUCCESS:
+    case SAVE_ITEM_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
       };
-    case FIND_PARTNER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return state;
-  }
-}
-
-export function deletePartnerById(state = defaultState, action) {
-  switch (action.type) {
-    case DELETE_PARTNER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case DELETE_PARTNER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-      };
-    case DELETE_PARTNER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return state;
-  }
-}
-
-export function savePartner(state = defaultState, action) {
-  switch (action.type) {
-    case SAVE_PARTNER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case SAVE_PARTNER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-      };
-    case SAVE_PARTNER_FAILURE:
+    case SAVE_ITEM_FAILURE:
       return {
         ...state,
         loading: false,

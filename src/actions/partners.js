@@ -24,7 +24,7 @@ export const findAll = ({
   search = {},
   sort = "asc",
   page = 0,
-  size = 10,
+  size = 5,
 } = {}) => (dispatch) => {
   dispatch({ type: FIND_PARTNERS_REQUEST });
 
@@ -35,8 +35,6 @@ export const findAll = ({
       dispatch(findPartnersSuccess(data));
     })
     .catch((error) => {
-      console.log("partner action" + error);
-
       dispatch(findPartnersFailure(error));
     });
 };
@@ -109,7 +107,7 @@ export const save = (model) => (dispatch) => {
   dispatch({ type: SAVE_PARTNER_REQUEST });
 
   const request = model.id
-    ? commonAxios.put(`partners/${1}`)
+    ? commonAxios.put(`partners/${model.id}`, model)
     : commonAxios.post("partners", model);
 
   request

@@ -1,104 +1,82 @@
-import React, { Component } from "react";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  withStyles,
-  Typography,
-} from "@material-ui/core";
-import PersonIcon from "@material-ui/icons/Person";
+import { List, ListItem, Typography, withStyles } from "@material-ui/core";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+import MoneyOffIcon from "@material-ui/icons/MoneyOff";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles";
 
 class DrawerComp extends Component {
   render() {
     const { classes } = this.props;
+
+    const Navs = [
+      {
+        path: "/transaction",
+        text: "Transaction",
+        icon: <MonetizationOnIcon className={classes.icon} />,
+      },
+      {
+        path: "/partners",
+        text: "Partners",
+        icon: <PersonIcon className={classes.icon} />,
+      },
+      {
+        path: "/users",
+        text: "Users",
+        icon: <PeopleAltIcon className={classes.icon} />,
+      },
+      {
+        path: "/pendings",
+        text: "Pending Items",
+        icon: <ScheduleIcon className={classes.icon} />,
+      },
+      {
+        path: "/items",
+        text: "Items",
+        icon: <CheckCircleOutlineIcon className={classes.icon} />,
+      },
+      {
+        path: "/rents",
+        text: "Rents",
+        icon: <AutorenewIcon className={classes.icon} />,
+      },
+      {
+        path: "/charges",
+        text: "Charges",
+        icon: <MoneyOffIcon className={classes.icon} />,
+      },
+      {
+        path: "/login",
+        text: "Logout",
+        icon: <ExitToAppIcon className={classes.icon} />,
+      },
+    ];
+
     return (
       <div>
         <div className={classes.toolbar}>
           <Typography className={classes.head}>Admin</Typography>
         </div>
 
-        <List>
-          <Link to="/home" className={classes.link}>
-            <ListItem className={classes.list}>
-              <HomeIcon className={classes.iconss} />
-              {"Home"}
-            </ListItem>
-          </Link>
-        </List>
-
-        <List>
-          <ListItem className={classes.list}>
-            <PersonIcon className={classes.iconss} />
-            {"Partner"}
-          </ListItem>
-          {partnerNavs.map((nav, index) => (
-            <Link to={nav.path} key={index} className={classes.link}>
-              <ListItem button className={classes.linkList}>
-                <ListItemText primary={nav.text} />
+        {Navs.map((nav, index) => (
+          <List key={index}>
+            <Link to={nav.path} className={classes.link}>
+              <ListItem className={classes.list}>
+                {nav.icon}
+                {nav.text}
               </ListItem>
             </Link>
-          ))}
-        </List>
-
-        <List>
-          <ListItem className={classes.list}>
-            <PeopleAltIcon className={classes.icon} />
-            {"User"}
-          </ListItem>
-          {userNavs.map((nav, index) => (
-            <Link to={nav.path} key={index} className={classes.link}>
-              <ListItem button className={classes.linkList}>
-                <ListItemText primary={nav.text} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-
-        <List>
-          <Link to="/login" className={classes.link}>
-            <ListItem className={classes.list}>
-              <PeopleAltIcon className={classes.icon} />
-              {"Logout"}
-            </ListItem>
-          </Link>
-        </List>
+          </List>
+        ))}
       </div>
     );
   }
 }
-
-const partnerNavs = [
-  {
-    path: "/partners",
-    text: "Partners",
-  },
-  {
-    path: "/partners/items-pending",
-    text: "Items Pending",
-  },
-  {
-    path: "/partners/items",
-    text: "Items",
-  },
-  {
-    path: "/partners/reports",
-    text: "Report",
-  },
-];
-
-const userNavs = [
-  {
-    path: "/users",
-    text: "Users",
-  },
-  {
-    path: "/users/reports",
-    text: "Report",
-  },
-];
 
 export default withStyles(styles, { withTheme: true })(DrawerComp);
