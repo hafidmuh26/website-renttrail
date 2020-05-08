@@ -17,42 +17,32 @@ class DrawerComp extends Component {
 
     const Navs = [
       {
-        path: "/transaction",
-        text: "Transaction",
-        icon: <MonetizationOnIcon className={classes.icon} />,
-      },
-      {
         path: "/partners",
-        text: "Partners",
+        text: "Partner",
         icon: <PersonIcon className={classes.icon} />,
       },
       {
         path: "/users",
-        text: "Users",
+        text: "User",
         icon: <PeopleAltIcon className={classes.icon} />,
       },
       {
         path: "/pendings",
-        text: "Pending Items",
+        text: "Pending Item",
         icon: <ScheduleIcon className={classes.icon} />,
       },
       {
         path: "/items",
-        text: "Items",
+        text: "Item",
         icon: <CheckCircleOutlineIcon className={classes.icon} />,
       },
       {
         path: "/rents",
-        text: "Rents",
+        text: "Rent",
         icon: <AutorenewIcon className={classes.icon} />,
       },
       {
-        path: "/charges",
-        text: "Charges",
-        icon: <MoneyOffIcon className={classes.icon} />,
-      },
-      {
-        path: "/login",
+        path: "/",
         text: "Logout",
         icon: <ExitToAppIcon className={classes.icon} />,
       },

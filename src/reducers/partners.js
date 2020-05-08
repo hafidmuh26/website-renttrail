@@ -50,7 +50,7 @@ export function findPartnerById(state = defaultState, action) {
       };
     case FIND_PARTNER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -75,7 +75,7 @@ export function deletePartnerById(state = defaultState, action) {
       };
     case DELETE_PARTNER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function savePartner(state = defaultState, action) {
       };
     case SAVE_PARTNER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

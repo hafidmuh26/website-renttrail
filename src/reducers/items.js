@@ -25,7 +25,7 @@ export function deleteItemById(state = defaultState, action) {
       };
     case DELETE_ITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -50,7 +50,7 @@ export function findItemById(state = defaultState, action) {
       };
     case FIND_ITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function saveItem(state = defaultState, action) {
       };
     case SAVE_ITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

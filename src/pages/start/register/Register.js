@@ -22,8 +22,6 @@ class Register extends Component {
     this.state = {};
   }
 
-  // method2
-  // ...
   render() {
     const { classes } = this.props;
 
@@ -80,12 +78,13 @@ class Register extends Component {
             variant="contained"
             color="primary"
             className={classes.submit}
+            href="/"
           >
             {"Register"}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="/login" variant="body2">
+              <Link to="/" variant="body2">
                 {"Login"}
               </Link>
             </Grid>
@@ -94,7 +93,7 @@ class Register extends Component {
         <Box mt={5}>
           <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" to="/login">
+            <Link color="inherit" to="/">
               {"Rent Trail"}
             </Link>{" "}
             {new Date().getFullYear()}

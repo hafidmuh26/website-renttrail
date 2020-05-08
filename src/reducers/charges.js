@@ -25,7 +25,7 @@ export function deleteChargeById(state = defaultState, action) {
       };
     case DELETE_CHARGE_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -50,7 +50,7 @@ export function findChargeById(state = defaultState, action) {
       };
     case FIND_CHARGE_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function saveCharge(state = defaultState, action) {
       };
     case SAVE_CHARGE_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

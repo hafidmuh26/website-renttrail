@@ -77,6 +77,11 @@ class ItemsPending extends Component {
     const sort = direction === "descending" ? "desc" : "asc";
     this.setState({ params: { ...params, sort } });
   };
+
+  onRowClick = (rowData) => {
+    this.props.history.push(`/pendings/${rowData[0]}`);
+  };
+
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -98,6 +103,7 @@ class ItemsPending extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
+      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
@@ -114,37 +120,41 @@ class ItemsPending extends Component {
         name: "id",
       },
       {
-        name: "Name",
+        label: "Name",
+        name: "name",
       },
       {
-        name: "age",
+        label: "Brand",
+        name: "brand",
       },
       {
-        name: "status",
+        label: "Price",
+        name: "price",
       },
       {
-        name: "Owner",
+        label: "Owner",
+        name: "owner",
       },
-      {
-        name: "Detil",
-        options: {
-          empty: true,
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return (
-              <Button
-                style={{ color: "white", background: "#57bcff" }}
-                onClick={() => {
-                  this.props.history.push(
-                    `/partners/items-pending/${tableMeta.tableData[0][0]}`
-                  );
-                }}
-              >
-                View
-              </Button>
-            );
-          },
-        },
-      },
+      // {
+      //   name: "Detil",
+      //   options: {
+      //     empty: true,
+      //     customBodyRender: (value, tableMeta, updateValue) => {
+      //       return (
+      //         <Button
+      //           style={{ color: "white", background: "#57bcff" }}
+      //           onClick={() => {
+      //             this.props.history.push(
+      //               `/partners/items-pending/${tableMeta.tableData[0][0]}`
+      //             );
+      //           }}
+      //         >
+      //           View
+      //         </Button>
+      //       );
+      //     },
+      //   },
+      // },
     ];
 
     return (
@@ -152,11 +162,11 @@ class ItemsPending extends Component {
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Items Pending"}</h1>
+            <h1>{"Pending Item"}</h1>
             <MUIDataTable
               columns={columns}
-              // data={!loading ? data : []}
-              data={datadmy}
+              data={!loading ? data : []}
+              // data={datadmy}
               options={options}
             />
 

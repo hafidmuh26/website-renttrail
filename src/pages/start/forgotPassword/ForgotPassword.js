@@ -22,10 +22,6 @@ class ForgotPassword extends Component {
     this.state = {};
   }
 
-  onclick = () => {
-    return <Link to="/home" />;
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -61,7 +57,7 @@ class ForgotPassword extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              // onClick={this.onclick}
+              href="/newPassword"
             >
               {"Submit"}
             </Button>
@@ -71,18 +67,13 @@ class ForgotPassword extends Component {
                   {"Register"}
                 </Link>
               </Grid>
-              <Grid item>
-                <Link to="/newPassword" variant="body2">
-                  ceritanya disubmit
-                </Link>
-              </Grid>
             </Grid>
           </form>
         </Card>
         <Box mt={8}>
           <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" to="/login">
+            <Link color="inherit" to="/">
               {"Rent Trail"}
             </Link>{" "}
             {new Date().getFullYear()}

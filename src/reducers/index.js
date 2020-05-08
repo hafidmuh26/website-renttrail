@@ -6,6 +6,7 @@ import {
   saveCharge,
 } from "./charges";
 import { deleteItemById, findItemById, findItems, saveItem } from "./items";
+// import { loginData } from "./login";
 import {
   deletePartnerById,
   findPartnerById,
@@ -28,6 +29,7 @@ import {
 import { deleteUserById, findUserById, findUsers, saveUser } from "./users";
 
 export default combineReducers({
+  // loginData,
   deleteChargeById,
   findChargeById,
   findCharges,

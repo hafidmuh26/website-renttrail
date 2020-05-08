@@ -50,7 +50,7 @@ export function findUserById(state = defaultState, action) {
       };
     case FIND_USER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -75,7 +75,7 @@ export function deleteUserById(state = defaultState, action) {
       };
     case DELETE_USER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function saveUser(state = defaultState, action) {
       };
     case SAVE_USER_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

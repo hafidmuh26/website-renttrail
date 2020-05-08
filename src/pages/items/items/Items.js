@@ -78,6 +78,10 @@ class Items extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
+  onRowClick = (rowData) => {
+    this.props.history.push(`/items/${rowData[0]}`);
+  };
+
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -100,6 +104,7 @@ class Items extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
+      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
@@ -116,36 +121,20 @@ class Items extends Component {
         name: "id",
       },
       {
-        name: "Name",
+        label: "Name",
+        name: "name",
       },
       {
-        name: "age",
+        label: "Brand",
+        name: "brand",
       },
       {
-        name: "status",
+        label: "Price",
+        name: "price",
       },
       {
-        name: "Owner",
-      },
-      {
-        name: "Detil",
-        options: {
-          empty: true,
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return (
-              <Button
-                style={{ color: "white", background: "#57bcff" }}
-                onClick={() => {
-                  this.props.history.push(
-                    `/partners/items-pending/${tableMeta.tableData[0][0]}`
-                  );
-                }}
-              >
-                View
-              </Button>
-            );
-          },
-        },
+        label: "Owner",
+        name: "owner",
       },
     ];
 
@@ -154,11 +143,11 @@ class Items extends Component {
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Ini Items ya"}</h1>
+            <h1>{"Item"}</h1>
             <MUIDataTable
               columns={columns}
-              // data={!loading ? data : []}
-              data={datadmy}
+              data={!loading ? data : []}
+              // data={datadmy}
               options={options}
             />
 

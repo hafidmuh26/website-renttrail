@@ -65,6 +65,8 @@ export const findById = (id) => (dispatch) => {
     });
 };
 function findPartnerSuccess(data) {
+  console.log("action partnert", data);
+
   return {
     type: FIND_PARTNER_SUCCESS,
     data: data,

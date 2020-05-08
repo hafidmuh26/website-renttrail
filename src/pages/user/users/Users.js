@@ -78,12 +78,16 @@ class Users extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
+  onRowClick = (rowData) => {
+    this.props.history.push(`/users/${rowData[0]}`);
+  };
+
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
 
     // TODO trouble in page, count;
-    console.log("total nya adalah :", params.total);
+    console.log("total nya adalah :", params);
     const options = {
       searchText: params.search.name,
       page: params.page,
@@ -100,6 +104,7 @@ class Users extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
+      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
@@ -116,38 +121,39 @@ class Users extends Component {
         name: "id",
       },
       {
-        label: "Column 1",
+        label: "NIK",
+        name: "nik",
       },
       {
-        label: "Column 2",
+        label: "Name",
+        name: "name",
       },
       {
-        label: "Column 3",
+        label: "Gender",
+        name: "gender",
       },
-      {
-        label: "Column 4",
-      },
-      {
-        name: "Detil",
-        options: {
-          empty: true,
-          customBodyRender: (tableMeta) => {
-            return (
-              <Button
-                style={{ color: "white", background: "#57bcff" }}
-                href="/transaction/id"
-                // onClick={() => {
-                //   this.props.history.push(
-                //     `/partners/${tableMeta.tableData[0][0]}`
-                //   );
-                // }}
-              >
-                View
-              </Button>
-            );
-          },
-        },
-      },
+      // {
+      //   name: "Detil",
+      //   options: {
+      //     empty: true,
+      //     customBodyRender: (value, tableMeta, updateValue) => {
+      //       return (
+      //         <Button
+      //           style={{ color: "white", background: "#57bcff" }}
+      //           // href="/transaction/id"
+      //           onClick={() => {
+      //             // this.props.history.push(
+      //             //   `/users/${tableMeta.tableData[0][0]}`
+      //             // );
+      //             console.log(tableMeta);
+      //           }}
+      //         >
+      //           View
+      //         </Button>
+      //       );
+      //     },
+      //   },
+      // },
     ];
 
     return (
@@ -155,11 +161,10 @@ class Users extends Component {
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Ini User ya"}</h1>
+            <h1>{"User"}</h1>
             <MUIDataTable
               columns={columns}
-              // data={!loading ? data : []}
-              data={datadmy}
+              data={!loading ? data : []}
               options={options}
             />
 
@@ -197,11 +202,3 @@ const mapDispatchToProps = {
 export default withStyles(styles, { withTheme: true })(
   connect(mapStateToProps, mapDispatchToProps)(Users)
 );
-
-const datadmy = [
-  ["1", "aaa", "bbb", "ccc", "ddd"],
-  ["2", "aaa", "bbb", "ccc", "ddd"],
-  ["3", "aaa", "bbb", "ccc", "ddd"],
-  ["4", "aaa", "bbb", "ccc", "ddd"],
-  ["5", "aaa", "bbb", "ccc", "ddd"],
-];

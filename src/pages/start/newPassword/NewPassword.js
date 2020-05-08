@@ -22,11 +22,6 @@ class NewPassword extends Component {
     this.state = {};
   }
 
-  //method2
-  onclick = () => {
-    return <Link to="/home" />;
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -66,7 +61,6 @@ class NewPassword extends Component {
               type="password"
               id="confirmPassword"
               autoComplete="confirmPassword"
-              autoFocus={true}
             />
             <Button
               type="submit"
@@ -74,13 +68,14 @@ class NewPassword extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+              href="/"
               // onClick={this.onclick}
             >
               {"Submit"}
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/login" variant="body2">
+                <Link to="/" variant="body2">
                   {"Login"}
                 </Link>
               </Grid>
@@ -90,7 +85,7 @@ class NewPassword extends Component {
         <Box mt={8}>
           <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" to="/login">
+            <Link color="inherit" to="/">
               {"Rent Trail"}
             </Link>{" "}
             {new Date().getFullYear()}

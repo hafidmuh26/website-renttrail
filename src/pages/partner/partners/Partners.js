@@ -14,7 +14,7 @@ class Partners extends Component {
 
     this.state = {
       params: {
-        data: [],
+        data: {},
         total: 0,
         search: { name: "" },
         page: 0,
@@ -38,7 +38,7 @@ class Partners extends Component {
     const { params } = this.state;
 
     if (prevProps.data !== data) {
-      this.setState({ data: data.list, total: data.total });
+      this.setState({ data: data.list, total: params.total });
     }
 
     if (prevState.params !== params) {
@@ -50,6 +50,7 @@ class Partners extends Component {
     if (prevProps.error !== error) {
       this.setState({ alertShow: true });
     }
+    console.log("yang ini did update", params);
   }
 
   // method2 build-in
@@ -78,6 +79,10 @@ class Partners extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
+  onRowClick = (rowData) => {
+    this.props.history.push(`/partners/${rowData[0]}`);
+  };
+
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -100,6 +105,7 @@ class Partners extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
+      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
@@ -120,7 +126,8 @@ class Partners extends Component {
         name: "name",
       },
       {
-        name: "Owner",
+        label: "Owner",
+        name: "owner",
       },
       {
         label: "Phone",
@@ -130,26 +137,36 @@ class Partners extends Component {
         label: "Alamat",
         name: "address",
       },
-      {
-        name: "Detil",
-        options: {
-          empty: true,
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return (
-              <Button
-                style={{ color: "white", background: "#57bcff" }}
-                onClick={() => {
-                  this.props.history.push(
-                    `/partners/${tableMeta.tableData[0][0]}`
-                  );
-                }}
-              >
-                View
-              </Button>
-            );
-          },
-        },
-      },
+      // {
+      //   name: "Detil",
+      //   options: {
+      //     empty: true,
+      //     customBodyRender: (value, tableMeta, updateValue) => {
+      //       return (
+      //         <Button
+      //           style={{ color: "white", background: "#57bcff" }}
+      //           onClick={() => {
+      //             // this.props.history.push(
+      //             //   `/partners/${tableMeta.rowIndex + 1}`
+      //             // );
+      //             let i = 0;
+      //             while ((data = i)) {
+      //               console.log(data[i++]);
+      //             }
+      //             // for (let i = 0; i < data.length; i++) {
+      //             //   console.log(data[i]);
+      //             // }
+      //             // data.forEach((e) => {
+      //             //   console.log(e.id);
+      //             // });
+      //           }}
+      //         >
+      //           View
+      //         </Button>
+      //       );
+      //     },
+      //   },
+      // },
     ];
 
     return (
@@ -157,7 +174,7 @@ class Partners extends Component {
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Partners"}</h1>
+            <h1>{"Partner"}</h1>
             <MUIDataTable
               columns={columns}
               data={!loading ? data : []}

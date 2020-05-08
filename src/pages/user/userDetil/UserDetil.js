@@ -1,6 +1,16 @@
-import { Avatar, Card, Grid, Typography, withStyles } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  Card,
+  Grid,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import FilterHdrIcon from "@material-ui/icons/FilterHdr";
 import React, { Component } from "react";
+import ImageZoom from "react-medium-image-zoom";
+import { connect } from "react-redux";
+import { deleteById, findById } from "../../../actions/users";
 import DrawerNav from "../../../components/drawer";
 import styles from "./styles";
 
@@ -8,28 +18,80 @@ class UserDetil extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    const { match } = this.props;
+
+    this.state = {
+      detail: {
+        id: match.params.id,
+        address: "",
+        gender: "",
+        name: "",
+        nik: "",
+        noHp: "",
+        picture: "",
+        account: {
+          email: "",
+        },
+      },
+      alertShow: false,
+      error: null,
+    };
   }
 
-  // method2
-  onClick = () => {
-    console.log("report user telah di click");
+  componentDidMount() {
+    const { detail } = this.state;
+    if (detail.id) {
+      this.props.findById(detail.id);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { deleteData, deleteError, data, error } = this.props;
+
+    if (prevProps.data !== data) {
+      this.setState({ detail: data });
+    } else if (prevProps.deleteError !== deleteError) {
+      this.setState({ error: deleteError });
+    } else if (prevProps.error !== error) {
+      this.setState({ error: error });
+    } else if (deleteData && prevProps.deleteData !== deleteData) {
+      this.props.history.goBack();
+    }
+  }
+
+  onDelete = () => {
+    const { detail } = this.state;
+    this.props.deleteById(detail.id);
+    return false;
+  };
+
+  hideAlert = () => {
+    this.setState({ alertShow: false });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, loading } = this.props;
+    const { detail, error } = this.state;
+
+    console.log("yang ini detail", detail);
 
     return (
       <div className={classes.root}>
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"User Detil"}</h1>
+            <h1>{"Detail User"}</h1>
             <Card className={classes.paper}>
               <div style={{ alignSelf: "center" }}>
-                <Avatar className={classes.avatar}>
-                  <FilterHdrIcon />
-                </Avatar>
+                <ImageZoom
+                  image={{
+                    src: "http://getdrawings.com/free-icon-bw/human-icon-1.png",
+                    style: { width: "135px" },
+                  }}
+                  zoomImage={{
+                    src: "http://getdrawings.com/free-icon-bw/human-icon-1.png",
+                  }}
+                />
               </div>
               <Typography style={{ alignSelf: "center" }}>
                 {"User Name"}
@@ -43,7 +105,10 @@ class UserDetil extends Component {
               >
                 <Grid item>
                   <Typography>{"ID"}</Typography>
+                  <Typography>{"Name"}</Typography>
                   <Typography>{"Email"}</Typography>
+                  <Typography>{"NIK"}</Typography>
+                  <Typography>{"Gender"}</Typography>
                   <Typography>{"Phone"}</Typography>
                   <Typography>{"Address"}</Typography>
                 </Grid>
@@ -52,13 +117,36 @@ class UserDetil extends Component {
                   <Typography>{":"}</Typography>
                   <Typography>{":"}</Typography>
                   <Typography>{":"}</Typography>
+                  <Typography>{":"}</Typography>
+                  <Typography>{":"}</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography>{"ID User"}</Typography>
-                  <Typography>{"email@email.com"}</Typography>
-                  <Typography>{"xxxx-xxxx-xxxx-xxx"}</Typography>
-                  <Typography>{"Jl. Merbalu No.747 RT20/RW30"}</Typography>
+                  <Typography>{detail.id}</Typography>
+                  <Typography>{detail.name}</Typography>
+                  <Typography>{detail.account.email}</Typography>
+                  <Typography>{detail.nik}</Typography>
+                  <Typography>{detail.gender}</Typography>
+                  <Typography>{detail.noHp}</Typography>
+                  <Typography>{detail.address}</Typography>
                 </Grid>
+              </Grid>
+
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                spacing={5}
+                style={{ marginBottom: 15, marginLeft: 3 }}
+              >
+                <Button
+                  variant="contained"
+                  style={{ background: "red", color: "white" }}
+                  onClick={this.onDelete}
+                  disabled={loading}
+                >
+                  Delete
+                </Button>
               </Grid>
 
               <Card className={classes.paper} variant="outlined">
@@ -72,38 +160,18 @@ class UserDetil extends Component {
                   {images.map((image, index) => (
                     <Grid item>
                       <Card variant="outlined" style={{ padding: 15 }}>
-                        <Avatar className={classes.avatar}>
-                          <FilterHdrIcon />
-                        </Avatar>
-                        <Typography align="center" key={index}>
-                          {image.text}
-                        </Typography>
+                        <ImageZoom
+                          image={{
+                            src: image.url,
+                            style: { width: "135px" },
+                          }}
+                          zoomImage={{
+                            src: image.url,
+                          }}
+                        />
                       </Card>
                     </Grid>
                   ))}
-                </Grid>
-              </Card>
-
-              <Card className={classes.paper} variant="outlined">
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={5}
-                >
-                  <Grid item>
-                    <Card
-                      variant="outlined"
-                      style={{ padding: 15 }}
-                      onClick={this.onClick}
-                    >
-                      <Avatar className={classes.avatar}>
-                        <FilterHdrIcon />
-                      </Avatar>
-                      <Typography align="center">{"Report"}</Typography>
-                    </Card>
-                  </Grid>
                 </Grid>
               </Card>
             </Card>
@@ -114,19 +182,27 @@ class UserDetil extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(UserDetil);
+const mapStateToProps = (state) => ({
+  deleteData: state.deleteUserById.data,
+  deleteError: state.deleteUserById.error,
+  data: state.findUserById.data,
+  error: state.findUserById.error,
+  loading: state.findUserById.loading || state.deleteUserById.loading,
+});
+
+const mapDispatchToProps = {
+  deleteById,
+  findById,
+};
+
+export default withStyles(styles, { withTheme: true })(
+  connect(mapStateToProps, mapDispatchToProps)(UserDetil)
+);
 
 const images = [
   {
     text: "KTP",
-  },
-  {
-    text: "Image1",
-  },
-  {
-    text: "Image2",
-  },
-  {
-    text: "Image3",
+    url:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcP2g5kTwmc6NVjSaE2i8zU_etSlqlQobCjDhzYkYpWFdER7_M&usqp=CAU",
   },
 ];
