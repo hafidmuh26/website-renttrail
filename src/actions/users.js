@@ -14,12 +14,6 @@ import {
   SAVE_USER_SUCCESS,
 } from "../constants/users";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const findAll = ({
   search = {},
   sort = "asc",
@@ -30,7 +24,6 @@ export const findAll = ({
 
   commonAxios
     .get("users", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findUsersSuccess(data));
     })
@@ -56,7 +49,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`users/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findUserSuccess(data));
     })
@@ -82,7 +74,6 @@ export const deleteById = (id) => (dispatch) => {
 
   commonAxios
     .delete(`users/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteUserSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("users", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveUserSuccess(data));
     })

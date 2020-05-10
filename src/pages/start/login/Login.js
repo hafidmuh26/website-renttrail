@@ -16,7 +16,7 @@ import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginData } from "../../../actions/login";
+// import { loginData } from "../../../actions/login";
 import styles from "./styles";
 
 class Login extends Component {
@@ -87,7 +87,7 @@ class Login extends Component {
               id="email"
               label="Email"
               name="email"
-              autoComplete="email"
+              autoComplete="off"
               autoFocus={true}
               value={form.email}
               onChange={this.onChange}
@@ -110,7 +110,6 @@ class Login extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              // type="submit"
               href="partners"
               disabled={loading}
             >
@@ -142,7 +141,7 @@ class Login extends Component {
           </Box>
         </Card>
 
-        {/* <Snackbar
+        <Snackbar
           open={this.state.alertShow}
           autoHideDuration={3000}
           onClose={this.hideAlert}
@@ -155,20 +154,22 @@ class Login extends Component {
           >
             {error?.message}
           </Alert>
-        </Snackbar> */}
+        </Snackbar>
       </Container>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   data: state.loginData.data,
-//   loading: state.loginData.loading,
-//   error: state.loginData.error,
-// });
+const mapStateToProps = (state) => ({
+  // data: state.loginData.data,
+  // loading: state.loginData.loading,
+  // error: state.loginData.error,
+});
 
-// const mapDispatchToProps = {
-//   loginData,
-// };
+const mapDispatchToProps = {
+  // loginData,
+};
 
-export default withStyles(styles, { withTheme: true })(Login);
+export default withStyles(styles, { withTheme: true })(
+  connect(mapStateToProps, mapDispatchToProps)(Login)
+);

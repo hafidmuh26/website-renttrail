@@ -5,12 +5,11 @@ import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
 import ImageZoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
-import { deleteById, findById } from "../../../actions/partners";
+import { deleteById, findById } from "../../../actions/pendingItems";
 import DrawerNav from "../../../components/drawer";
-import { outletImgs, requirements } from "./comp";
 import styles from "./styles";
 
-class PartnerDetil extends Component {
+class ItemsPendingDetil extends Component {
   constructor(props) {
     super(props);
 
@@ -19,16 +18,17 @@ class PartnerDetil extends Component {
     this.state = {
       detail: {
         id: match.params.id,
-        owner: "",
-        telp: "",
-        address: "",
-        account: { email: "" },
+        name: "",
+        brand: "",
+        age: "",
+        price: "",
+        status: "",
+        partner: { name: "" },
       },
       alertShow: false,
       error: null,
     };
   }
-
   componentDidMount() {
     const { detail } = this.state;
     if (detail.id) {
@@ -63,36 +63,40 @@ class PartnerDetil extends Component {
   render() {
     const { classes, loading } = this.props;
     const { detail, error } = this.state;
-    console.log("yang ini detail : ", detail);
 
     return (
       <div className={classes.root}>
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Detail Partner"}</h1>
+            <h1>{"Detail Pending Item"}</h1>
             <Card className={classes.paper}>
-              <div
-                style={{
-                  alignSelf: "center",
-                }}
-              >
-                <ImageZoom
-                  image={{
-                    src:
-                      "https://d1nhio0ox7pgb.cloudfront.net/_img/i_collection_png/512x512/plain/market_stand.png",
-                    style: { width: "135px" },
-                  }}
-                  zoomImage={{
-                    src:
-                      "https://d1nhio0ox7pgb.cloudfront.net/_img/i_collection_png/512x512/plain/market_stand.png",
-                  }}
-                />
-                <Typography align="center">
-                  {detail.owner}
-                  {!detail.owner && "Loading..."}
-                </Typography>
-              </div>
+              <Card className={classes.paper} variant="outlined">
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
+                  spacing={5}
+                >
+                  {items.map((image, index) => (
+                    <Grid item>
+                      <Card variant="outlined" style={{ padding: 15 }}>
+                        <ImageZoom
+                          image={{
+                            src: image.image,
+                            style: { width: "135px" },
+                          }}
+                          zoomImage={{
+                            src: image.image,
+                          }}
+                        />
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Card>
+
               <Grid
                 container
                 item
@@ -112,59 +116,85 @@ class PartnerDetil extends Component {
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 90 }}>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Owner"}
+                      {"Name"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.owner}
-                      {!detail.owner && "Loading..."}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs>
-                  <Grid style={{ marginRight: 90 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
-                      {"Email"}
-                    </Typography>
-                  </Grid>
-                  <Grid>
-                    <Typography>
-                      {detail.account.email}
-                      {!detail.account.email && "Loading..."}
+                      {detail.name}
+                      {!detail.name && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
                   <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Phone"}
+                      {"Brand"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.telp}
-                      {!detail.telp && "Loading..."}
+                      {detail.brand}
+                      {!detail.brand && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 100 }}>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Address"}
+                      {"Age"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.address}
-                      {!detail.address && "Loading..."}
+                      {detail.age}
+                      {!detail.age && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 100 }}>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Price"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.price}
+                      {!detail.price && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Status"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.status}
+                      {!detail.status && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Outlet"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.partner.outlet}
+                      {!detail.partner.outlet && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
                       {"Action"}
                     </Typography>
@@ -182,60 +212,6 @@ class PartnerDetil extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-
-              <Card className={classes.paper} variant="outlined">
-                <h3>requirements</h3>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={5}
-                >
-                  {requirements.map((image, index) => (
-                    <Grid item>
-                      <Card variant="outlined" style={{ padding: 15 }}>
-                        <ImageZoom
-                          image={{
-                            src: image.image,
-                            style: { width: "135px" },
-                          }}
-                          zoomImage={{
-                            src: image.image,
-                          }}
-                        />
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Card>
-
-              <Card className={classes.paper} variant="outlined">
-                <h3>Outlet Images</h3>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={5}
-                >
-                  {outletImgs.map((outletImg, index) => (
-                    <Grid item>
-                      <Card variant="outlined" style={{ padding: 15 }}>
-                        <ImageZoom
-                          image={{
-                            src: outletImg.image,
-                            style: { width: "135px" },
-                          }}
-                          zoomImage={{
-                            src: outletImg.image,
-                          }}
-                        />
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Card>
             </Card>
 
             <Snackbar
@@ -258,13 +234,13 @@ class PartnerDetil extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => ({
-  deleteData: state.deletePartnerById.data,
-  deleteError: state.deletePartnerById.error,
-  data: state.findPartnerById.data,
-  error: state.findPartnerById.error,
-  loading: state.findPartnerById.loading || state.deletePartnerById.loading,
+  deleteData: state.deletePendingItemById.data,
+  deleteError: state.deletePendingItemById.error,
+  data: state.findPendingItemById.data,
+  error: state.findPendingItemById.error,
+  loading:
+    state.findPendingItemById.loading || state.deletePendingItemById.loading,
 });
 
 const mapDispatchToProps = {
@@ -273,5 +249,24 @@ const mapDispatchToProps = {
 };
 
 export default withStyles(styles, { withTheme: true })(
-  connect(mapStateToProps, mapDispatchToProps)(PartnerDetil)
+  connect(mapStateToProps, mapDispatchToProps)(ItemsPendingDetil)
 );
+
+export const items = [
+  {
+    image:
+      "https://jeramadventurestore.com/pictures/items/tas-gunung-tas-carrier-rei-keiraville-50l-1555_1.jpg",
+  },
+  {
+    image:
+      "https://jeramadventurestore.com/pictures/items/tas-gunung-tas-carrier-rei-keiraville-50l-1555_1.jpg",
+  },
+  {
+    image:
+      "https://jeramadventurestore.com/pictures/items/tas-gunung-tas-carrier-rei-keiraville-50l-1555_1.jpg",
+  },
+  {
+    image:
+      "https://jeramadventurestore.com/pictures/items/tas-gunung-tas-carrier-rei-keiraville-50l-1555_1.jpg",
+  },
+];

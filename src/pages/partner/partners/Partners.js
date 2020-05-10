@@ -1,12 +1,13 @@
-import { Button, CircularProgress, withStyles } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import MUIDataTable from "mui-datatables";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import RingLoader from "react-spinners/RingLoader";
 import { findAll } from "../../../actions/partners";
 import DrawerNav from "../../../components/drawer";
-import styles from "./styles";
+import { override, styles } from "./styles";
 
 class Partners extends Component {
   constructor(props) {
@@ -79,10 +80,6 @@ class Partners extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
-  onRowClick = (rowData) => {
-    this.props.history.push(`/partners/${rowData[0]}`);
-  };
-
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -105,11 +102,10 @@ class Partners extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
-      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
-            <CircularProgress />
+            <RingLoader css={override} size={50} color={"#57BCFF"} />
           ) : (
             "Sorry, no matching records found"
           ),
@@ -123,7 +119,7 @@ class Partners extends Component {
       },
       {
         label: "Outlet",
-        name: "name",
+        name: "outlet",
       },
       {
         label: "Owner",
@@ -134,39 +130,23 @@ class Partners extends Component {
         name: "telp",
       },
       {
-        label: "Alamat",
-        name: "address",
+        name: "Detil",
+        options: {
+          empty: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button
+                style={{ color: "white", background: "#57bcff" }}
+                onClick={() => {
+                  this.props.history.push(`/partners/${tableMeta.rowData[0]}`);
+                }}
+              >
+                View
+              </Button>
+            );
+          },
+        },
       },
-      // {
-      //   name: "Detil",
-      //   options: {
-      //     empty: true,
-      //     customBodyRender: (value, tableMeta, updateValue) => {
-      //       return (
-      //         <Button
-      //           style={{ color: "white", background: "#57bcff" }}
-      //           onClick={() => {
-      //             // this.props.history.push(
-      //             //   `/partners/${tableMeta.rowIndex + 1}`
-      //             // );
-      //             let i = 0;
-      //             while ((data = i)) {
-      //               console.log(data[i++]);
-      //             }
-      //             // for (let i = 0; i < data.length; i++) {
-      //             //   console.log(data[i]);
-      //             // }
-      //             // data.forEach((e) => {
-      //             //   console.log(e.id);
-      //             // });
-      //           }}
-      //         >
-      //           View
-      //         </Button>
-      //       );
-      //     },
-      //   },
-      // },
     ];
 
     return (

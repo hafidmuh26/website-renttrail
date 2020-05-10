@@ -14,18 +14,11 @@ import {
   SAVE_TRANSACTION_SUCCESS,
 } from "../constants/transactions";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const deleteById = (id) => (dispatch) => {
   dispatch({ type: DELETE_TRANSACTION_REQUEST });
 
   commonAxios
     .delete(`transaction/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteTransactionSuccess(data));
     })
@@ -51,7 +44,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`transaction/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findTransactionSuccess(data));
     })
@@ -82,7 +74,6 @@ export const findAll = ({
 
   commonAxios
     .get("transaction", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findTransactionsSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("transaction", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveTransactionSuccess(data));
     })

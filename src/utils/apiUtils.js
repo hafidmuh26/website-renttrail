@@ -33,6 +33,7 @@
 //       throw error;
 //     }
 //     return data.data;
+// return sleep(3000, data.data);
 //   },
 //   function (error) {
 //     return Promise.reject(error);
@@ -47,10 +48,16 @@ const axios = require("axios");
 
 const commonAxios = axios.create({
   // baseURL: process.env.REACT_APP_BACKEND_URL,
-  // baseURL: "http://192.168.1.32:8080",
-  baseURL: "http://192.168.1.33:8080",
+  baseURL: "http://192.168.1.30:8080",
+  // baseURL: "http://192.168.1.33:8080",
   // baseURL: "http://localhost:8080",
 });
+
+function sleep(delay, value) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, delay, value);
+  });
+}
 
 commonAxios.interceptors.response.use(
   function (response) {
@@ -60,8 +67,7 @@ commonAxios.interceptors.response.use(
       error.data = data.data;
       throw error;
     }
-    return data.data;
-    // return sleep(100, data.data)
+    return sleep(1000, data.data);
   },
   function (error) {
     return Promise.reject(error);

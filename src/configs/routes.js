@@ -5,7 +5,7 @@ import ItemsDetil from "../pages/items/itemsDetil";
 import PartnerDetil from "../pages/partner/partnerDetil";
 import Partners from "../pages/partner/partners";
 import PendingItems from "../pages/pendingItems/pendingItems";
-import PendingItemsDetil from "../pages/pendingItems/pendingItemsDetil";
+import PendingItemDetil from "../pages/pendingItems/pendingItemDetil";
 import RentDetil from "../pages/rent/rentDetil";
 import Rents from "../pages/rent/rents";
 import ForgotPassword from "../pages/start/forgotPassword";
@@ -53,7 +53,7 @@ const routes = [
   },
   {
     path: "/pendings/:id",
-    component: PendingItemsDetil,
+    component: PendingItemDetil,
   },
   {
     path: "/items",

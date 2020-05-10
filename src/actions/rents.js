@@ -14,18 +14,11 @@ import {
   SAVE_RENT_SUCCESS,
 } from "../constants/rents";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const deleteById = (id) => (dispatch) => {
   dispatch({ type: DELETE_RENT_REQUEST });
 
   commonAxios
     .delete(`rents/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteRentSuccess(data));
     })
@@ -51,7 +44,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`rents/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findRentSuccess(data));
     })
@@ -82,7 +74,6 @@ export const findAll = ({
 
   commonAxios
     .get("rents", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findRentsSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("rents", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveRentSuccess(data));
     })

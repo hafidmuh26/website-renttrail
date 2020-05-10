@@ -14,18 +14,11 @@ import {
   SAVE_PENDINGITEM_SUCCESS,
 } from "../constants/pendingItems";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const deleteById = (id) => (dispatch) => {
   dispatch({ type: DELETE_PENDINGITEM_REQUEST });
 
   commonAxios
     .delete(`pendings/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteItemPendingSuccess(data));
     })
@@ -51,7 +44,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`pendings/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findItemPendingSuccess(data));
     })
@@ -82,7 +74,6 @@ export const findAll = ({
 
   commonAxios
     .get("pendings", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findItemsPendingSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("pendings", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveItemPendingSuccess(data));
     })

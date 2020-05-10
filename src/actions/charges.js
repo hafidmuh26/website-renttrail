@@ -14,18 +14,11 @@ import {
   SAVE_CHARGE_SUCCESS,
 } from "../constants/charges";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const deleteById = (id) => (dispatch) => {
   dispatch({ type: DELETE_CHARGE_REQUEST });
 
   commonAxios
     .delete(`charges/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteChargeSuccess(data));
     })
@@ -51,7 +44,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`charges/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findChargeSuccess(data));
     })
@@ -82,7 +74,6 @@ export const findAll = ({
 
   commonAxios
     .get("charges", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findChargesSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("charges", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveChargeSuccess(data));
     })

@@ -1,12 +1,13 @@
-import { Button, CircularProgress, withStyles } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import MUIDataTable from "mui-datatables";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import RingLoader from "react-spinners/RingLoader";
 import { findAll } from "../../../actions/pendingItems";
 import DrawerNav from "../../../components/drawer";
-import styles from "./styles";
+import { override, styles } from "./styles";
 
 class ItemsPending extends Component {
   constructor(props) {
@@ -78,10 +79,6 @@ class ItemsPending extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
-  onRowClick = (rowData) => {
-    this.props.history.push(`/pendings/${rowData[0]}`);
-  };
-
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -103,11 +100,10 @@ class ItemsPending extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
-      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
-            <CircularProgress />
+            <RingLoader css={override} size={50} color={"#57BCFF"} />
           ) : (
             "Sorry, no matching records found"
           ),
@@ -132,29 +128,31 @@ class ItemsPending extends Component {
         name: "price",
       },
       {
-        label: "Owner",
-        name: "owner",
+        label: "Outlet",
+        name: "partner.outlet",
       },
-      // {
-      //   name: "Detil",
-      //   options: {
-      //     empty: true,
-      //     customBodyRender: (value, tableMeta, updateValue) => {
-      //       return (
-      //         <Button
-      //           style={{ color: "white", background: "#57bcff" }}
-      //           onClick={() => {
-      //             this.props.history.push(
-      //               `/partners/items-pending/${tableMeta.tableData[0][0]}`
-      //             );
-      //           }}
-      //         >
-      //           View
-      //         </Button>
-      //       );
-      //     },
-      //   },
-      // },
+      {
+        label: "Owner",
+        name: "partner.owner",
+      },
+      {
+        name: "Detil",
+        options: {
+          empty: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button
+                style={{ color: "white", background: "#57bcff" }}
+                onClick={() => {
+                  this.props.history.push(`/pendings/${tableMeta.rowData[0]}`);
+                }}
+              >
+                View
+              </Button>
+            );
+          },
+        },
+      },
     ];
 
     return (
@@ -166,7 +164,6 @@ class ItemsPending extends Component {
             <MUIDataTable
               columns={columns}
               data={!loading ? data : []}
-              // data={datadmy}
               options={options}
             />
 
@@ -205,10 +202,10 @@ export default withStyles(styles, { withTheme: true })(
   connect(mapStateToProps, mapDispatchToProps)(ItemsPending)
 );
 
-const datadmy = [
-  ["1", "aaa", "bbb", "ccc", "ddd"],
-  ["2", "aaa", "bbb", "ccc", "ddd"],
-  ["3", "aaa", "bbb", "ccc", "ddd"],
-  ["4", "aaa", "bbb", "ccc", "ddd"],
-  ["5", "aaa", "bbb", "ccc", "ddd"],
-];
+// const datadmy = [
+//   ["1", "aaa", "bbb", "ccc", "ddd"],
+//   ["2", "aaa", "bbb", "ccc", "ddd"],
+//   ["3", "aaa", "bbb", "ccc", "ddd"],
+//   ["4", "aaa", "bbb", "ccc", "ddd"],
+//   ["5", "aaa", "bbb", "ccc", "ddd"],
+// ];

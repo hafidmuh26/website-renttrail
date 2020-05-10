@@ -5,12 +5,6 @@
 //   LOGIN_SUCCESS,
 // } from "../constants/login";
 
-// function sleep(delay, value) {
-//   return new Promise(function (resolve) {
-//     setTimeout(resolve, delay, value);
-//   });
-// }
-
 // function loginSucces(data) {
 //   return {
 //     type: LOGIN_SUCCESS,
@@ -30,7 +24,6 @@
 
 //   const request = commonAxios.post("auth/login", { email, password });
 //   request
-//     // .then((data) => sleep(1000, data))
 //     .then((data) => {
 //       dispatch(loginSucces(data));
 //     })

@@ -14,12 +14,6 @@ import {
   SAVE_ITEM_SUCCESS,
 } from "../constants/items";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const findAll = ({
   search = {},
   sort = "asc",
@@ -30,7 +24,6 @@ export const findAll = ({
 
   commonAxios
     .get("items", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findItemsSuccess(data));
     })
@@ -56,7 +49,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`items/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findItemSuccess(data));
     })
@@ -82,7 +74,6 @@ export const deleteById = (id) => (dispatch) => {
 
   commonAxios
     .delete(`items/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deleteItemSuccess(data));
     })
@@ -111,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("items", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(saveItemSuccess(data));
     })

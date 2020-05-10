@@ -80,7 +80,12 @@ class Charges extends Component {
 
   render() {
     const { classes, loading } = this.props;
-    const { data, params, total, error } = this.state;
+    const {
+      //  data,
+      params,
+      total,
+      error,
+    } = this.state;
 
     // TODO trouble in page, count;
     console.log("total nya adalah :", params.total);

@@ -14,12 +14,6 @@ import {
   SAVE_PARTNER_SUCCESS,
 } from "../constants/partners";
 
-function sleep(delay, value) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, delay, value);
-  });
-}
-
 export const findAll = ({
   search = {},
   sort = "asc",
@@ -30,7 +24,6 @@ export const findAll = ({
 
   commonAxios
     .get("partners", { params: { ...search, sort, page, size } })
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findPartnersSuccess(data));
     })
@@ -56,7 +49,6 @@ export const findById = (id) => (dispatch) => {
 
   commonAxios
     .get(`partners/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(findPartnerSuccess(data));
     })
@@ -65,8 +57,6 @@ export const findById = (id) => (dispatch) => {
     });
 };
 function findPartnerSuccess(data) {
-  console.log("action partnert", data);
-
   return {
     type: FIND_PARTNER_SUCCESS,
     data: data,
@@ -84,7 +74,6 @@ export const deleteById = (id) => (dispatch) => {
 
   commonAxios
     .delete(`partners/${id}`)
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(deletePartnerSuccess(data));
     })
@@ -113,7 +102,6 @@ export const save = (model) => (dispatch) => {
     : commonAxios.post("partners", model);
 
   request
-    .then((data) => sleep(1000, data))
     .then((data) => {
       dispatch(savePartnerSuccess(data));
     })

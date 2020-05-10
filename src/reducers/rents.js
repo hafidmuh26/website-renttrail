@@ -25,7 +25,7 @@ export function deleteRentById(state = defaultState, action) {
       };
     case DELETE_RENT_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -50,7 +50,7 @@ export function findRentById(state = defaultState, action) {
       };
     case FIND_RENT_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function saveRent(state = defaultState, action) {
       };
     case SAVE_RENT_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

@@ -1,12 +1,13 @@
-import { Button, CircularProgress, withStyles } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import MUIDataTable from "mui-datatables";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import RingLoader from "react-spinners/RingLoader";
 import { findAll } from "../../../actions/rents";
 import DrawerNav from "../../../components/drawer";
-import styles from "./styles";
+import { override, styles } from "./styles";
 
 class Rents extends Component {
   constructor(props) {
@@ -78,10 +79,6 @@ class Rents extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
-  onRowClick = (rowData) => {
-    this.props.history.push(`/pendings/${rowData[0]}`);
-  };
-
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -108,7 +105,7 @@ class Rents extends Component {
       textLabels: {
         body: {
           noMatch: loading ? (
-            <CircularProgress />
+            <RingLoader css={override} size={50} color={"#57BCFF"} />
           ) : (
             "Sorry, no matching records found"
           ),
@@ -121,8 +118,16 @@ class Rents extends Component {
         name: "id",
       },
       {
-        label: "Name",
-        name: "name",
+        label: "Item Name",
+        name: "item.name",
+      },
+      {
+        label: "Outlet",
+        name: "item.partner.outlet",
+      },
+      {
+        label: "Borrower",
+        name: "user.name",
       },
       {
         label: "Date Start",
@@ -133,33 +138,23 @@ class Rents extends Component {
         name: "dateEnd",
       },
       {
-        label: "Item Name",
-        name: "item.name",
+        name: "Detil",
+        options: {
+          empty: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button
+                style={{ color: "white", background: "#57bcff" }}
+                onClick={() => {
+                  this.props.history.push(`rents/${tableMeta.rowData[0]}`);
+                }}
+              >
+                View
+              </Button>
+            );
+          },
+        },
       },
-      {
-        label: "User Name",
-        name: "user.name",
-      },
-      // {
-      //   name: "Detil",
-      //   options: {
-      //     empty: true,
-      //     customBodyRender: (value, tableMeta, updateValue) => {
-      //       return (
-      //         <Button
-      //           style={{ color: "white", background: "#57bcff" }}
-      //           onClick={() => {
-      //             this.props.history.push(
-      //               `/partners/items-pending/${tableMeta.tableData[0][0]}`
-      //             );
-      //           }}
-      //         >
-      //           View
-      //         </Button>
-      //       );
-      //     },
-      //   },
-      // },
     ];
 
     return (
@@ -171,7 +166,6 @@ class Rents extends Component {
             <MUIDataTable
               columns={columns}
               data={!loading ? data : []}
-              // data={datadmy}
               options={options}
             />
 
@@ -209,11 +203,3 @@ const mapDispatchToProps = {
 export default withStyles(styles, { withTheme: true })(
   connect(mapStateToProps, mapDispatchToProps)(Rents)
 );
-
-const datadmy = [
-  ["1", "aaa", "bbb", "ccc", "ddd"],
-  ["2", "aaa", "bbb", "ccc", "ddd"],
-  ["3", "aaa", "bbb", "ccc", "ddd"],
-  ["4", "aaa", "bbb", "ccc", "ddd"],
-  ["5", "aaa", "bbb", "ccc", "ddd"],
-];

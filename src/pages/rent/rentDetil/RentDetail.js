@@ -3,14 +3,12 @@ import Snackbar from "@material-ui/core/Snackbar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
-import ImageZoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
-import { deleteById, findById } from "../../../actions/partners";
+import { deleteById, findById } from "../../../actions/rents";
 import DrawerNav from "../../../components/drawer";
-import { outletImgs, requirements } from "./comp";
 import styles from "./styles";
 
-class PartnerDetil extends Component {
+class UserDetil extends Component {
   constructor(props) {
     super(props);
 
@@ -19,10 +17,15 @@ class PartnerDetil extends Component {
     this.state = {
       detail: {
         id: match.params.id,
-        owner: "",
-        telp: "",
-        address: "",
-        account: { email: "" },
+        totalPrice: "",
+        dateStart: "",
+        dateEnd: "",
+        item: {
+          name: "",
+          partner: {
+            outlet: "",
+          },
+        },
       },
       alertShow: false,
       error: null,
@@ -63,36 +66,16 @@ class PartnerDetil extends Component {
   render() {
     const { classes, loading } = this.props;
     const { detail, error } = this.state;
-    console.log("yang ini detail : ", detail);
+
+    console.log("yang ini detail", detail);
 
     return (
       <div className={classes.root}>
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Detail Partner"}</h1>
+            <h1>{"Detail Rent"}</h1>
             <Card className={classes.paper}>
-              <div
-                style={{
-                  alignSelf: "center",
-                }}
-              >
-                <ImageZoom
-                  image={{
-                    src:
-                      "https://d1nhio0ox7pgb.cloudfront.net/_img/i_collection_png/512x512/plain/market_stand.png",
-                    style: { width: "135px" },
-                  }}
-                  zoomImage={{
-                    src:
-                      "https://d1nhio0ox7pgb.cloudfront.net/_img/i_collection_png/512x512/plain/market_stand.png",
-                  }}
-                />
-                <Typography align="center">
-                  {detail.owner}
-                  {!detail.owner && "Loading..."}
-                </Typography>
-              </div>
               <Grid
                 container
                 item
@@ -112,59 +95,72 @@ class PartnerDetil extends Component {
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 90 }}>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Owner"}
+                      {"Item"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.owner}
-                      {!detail.owner && "Loading..."}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs>
-                  <Grid style={{ marginRight: 90 }}>
-                    <Typography style={{ fontWeight: "bold" }}>
-                      {"Email"}
-                    </Typography>
-                  </Grid>
-                  <Grid>
-                    <Typography>
-                      {detail.account.email}
-                      {!detail.account.email && "Loading..."}
+                      {detail.item.name}
+                      {!detail.item.name && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
                   <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Phone"}
+                      {"Outlet"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.telp}
-                      {!detail.telp && "Loading..."}
+                      {detail.item.partner.outlet}
+                      {!detail.item.partner.outlet && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 100 }}>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
-                      {"Address"}
+                      {"Date Start"}
                     </Typography>
                   </Grid>
                   <Grid>
                     <Typography>
-                      {detail.address}
-                      {!detail.address && "Loading..."}
+                      {detail.dateStart}
+                      {!detail.dateStart && "Loading..."}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item xs>
-                  <Grid style={{ marginRight: 100 }}>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Date End"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.dateEnd}
+                      {!detail.dateEnd && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Total Price"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.totalPrice}
+                      {!detail.totalPrice && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
                     <Typography style={{ fontWeight: "bold" }}>
                       {"Action"}
                     </Typography>
@@ -182,60 +178,6 @@ class PartnerDetil extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-
-              <Card className={classes.paper} variant="outlined">
-                <h3>requirements</h3>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={5}
-                >
-                  {requirements.map((image, index) => (
-                    <Grid item>
-                      <Card variant="outlined" style={{ padding: 15 }}>
-                        <ImageZoom
-                          image={{
-                            src: image.image,
-                            style: { width: "135px" },
-                          }}
-                          zoomImage={{
-                            src: image.image,
-                          }}
-                        />
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Card>
-
-              <Card className={classes.paper} variant="outlined">
-                <h3>Outlet Images</h3>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={5}
-                >
-                  {outletImgs.map((outletImg, index) => (
-                    <Grid item>
-                      <Card variant="outlined" style={{ padding: 15 }}>
-                        <ImageZoom
-                          image={{
-                            src: outletImg.image,
-                            style: { width: "135px" },
-                          }}
-                          zoomImage={{
-                            src: outletImg.image,
-                          }}
-                        />
-                      </Card>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Card>
             </Card>
 
             <Snackbar
@@ -260,18 +202,18 @@ class PartnerDetil extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  deleteData: state.deletePartnerById.data,
-  deleteError: state.deletePartnerById.error,
-  data: state.findPartnerById.data,
-  error: state.findPartnerById.error,
-  loading: state.findPartnerById.loading || state.deletePartnerById.loading,
+  deleteData: state.deleteRentById.data,
+  deleteError: state.deleteRentById.error,
+  data: state.findRentById.data,
+  error: state.findRentById.error,
+  loading: state.findRentById.loading || state.deleteRentById.loading,
 });
 
 const mapDispatchToProps = {
-  findById,
   deleteById,
+  findById,
 };
 
 export default withStyles(styles, { withTheme: true })(
-  connect(mapStateToProps, mapDispatchToProps)(PartnerDetil)
+  connect(mapStateToProps, mapDispatchToProps)(UserDetil)
 );

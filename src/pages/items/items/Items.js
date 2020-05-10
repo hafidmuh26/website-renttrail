@@ -1,12 +1,13 @@
-import { Button, CircularProgress, withStyles } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import MUIDataTable from "mui-datatables";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import RingLoader from "react-spinners/RingLoader";
 import { findAll } from "../../../actions/items";
 import DrawerNav from "../../../components/drawer";
-import styles from "./styles";
+import { override, styles } from "./styles";
 
 class Items extends Component {
   constructor(props) {
@@ -104,11 +105,10 @@ class Items extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
-      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
-            <CircularProgress />
+            <RingLoader css={override} size={50} color={"#57BCFF"} />
           ) : (
             "Sorry, no matching records found"
           ),
@@ -133,8 +133,30 @@ class Items extends Component {
         name: "price",
       },
       {
+        label: "Outlet",
+        name: "partner.outlet",
+      },
+      {
         label: "Owner",
-        name: "owner",
+        name: "partner.owner",
+      },
+      {
+        name: "Detil",
+        options: {
+          empty: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button
+                style={{ color: "white", background: "#57bcff" }}
+                onClick={() => {
+                  this.props.history.push(`/items/${tableMeta.rowData[0]}`);
+                }}
+              >
+                View
+              </Button>
+            );
+          },
+        },
       },
     ];
 
@@ -147,7 +169,6 @@ class Items extends Component {
             <MUIDataTable
               columns={columns}
               data={!loading ? data : []}
-              // data={datadmy}
               options={options}
             />
 
@@ -185,11 +206,3 @@ const mapDispatchToProps = {
 export default withStyles(styles, { withTheme: true })(
   connect(mapStateToProps, mapDispatchToProps)(Items)
 );
-
-const datadmy = [
-  ["1", "aaa", "bbb", "ccc", "ddd"],
-  ["2", "aaa", "bbb", "ccc", "ddd"],
-  ["3", "aaa", "bbb", "ccc", "ddd"],
-  ["4", "aaa", "bbb", "ccc", "ddd"],
-  ["5", "aaa", "bbb", "ccc", "ddd"],
-];

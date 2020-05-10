@@ -1,6 +1,8 @@
+import { css } from "@emotion/core";
+
 const drawerWidth = 240;
 
-const styles = (theme) => ({
+export const styles = (theme) => ({
   root: {
     display: "flex",
   },
@@ -19,4 +21,7 @@ const styles = (theme) => ({
   },
 });
 
-export default styles;
+export const override = css`
+  display: block;
+  margin: auto;
+`;

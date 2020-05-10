@@ -48,7 +48,7 @@ class Register extends Component {
               id="email"
               label="Email"
               name="email"
-              autoComplete="email"
+              autoComplete="off"
               autoFocus={true}
             />
             <TextField

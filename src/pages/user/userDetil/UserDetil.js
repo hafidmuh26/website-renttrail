@@ -1,12 +1,7 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  Grid,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import FilterHdrIcon from "@material-ui/icons/FilterHdr";
+import { Button, Card, Grid, Typography, withStyles } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
 import ImageZoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
@@ -23,12 +18,11 @@ class UserDetil extends Component {
     this.state = {
       detail: {
         id: match.params.id,
-        address: "",
-        gender: "",
         name: "",
         nik: "",
         noHp: "",
-        picture: "",
+        address: "",
+        gender: "",
         account: {
           email: "",
         },
@@ -92,64 +86,130 @@ class UserDetil extends Component {
                     src: "http://getdrawings.com/free-icon-bw/human-icon-1.png",
                   }}
                 />
+                <Typography align="center">
+                  {detail.name}
+                  {!detail.name && "Loading..."}
+                </Typography>
               </div>
-              <Typography style={{ alignSelf: "center" }}>
-                {"User Name"}
-              </Typography>
+
               <Grid
                 container
+                item
                 direction={"row"}
                 justify={"flex-start"}
                 spacing={10}
-                style={{ marginTop: 20, marginBottom: 20 }}
+                style={{ marginTop: 20, marginBottom: 5 }}
               >
-                <Grid item>
-                  <Typography>{"ID"}</Typography>
-                  <Typography>{"Name"}</Typography>
-                  <Typography>{"Email"}</Typography>
-                  <Typography>{"NIK"}</Typography>
-                  <Typography>{"Gender"}</Typography>
-                  <Typography>{"Phone"}</Typography>
-                  <Typography>{"Address"}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"ID"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>{detail.id}</Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"NIK"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.nik}
+                      {!detail.nik && "Loading..."}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography>{detail.id}</Typography>
-                  <Typography>{detail.name}</Typography>
-                  <Typography>{detail.account.email}</Typography>
-                  <Typography>{detail.nik}</Typography>
-                  <Typography>{detail.gender}</Typography>
-                  <Typography>{detail.noHp}</Typography>
-                  <Typography>{detail.address}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Name"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.name}
+                      {!detail.name && "Loading..."}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-
-              <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="center"
-                spacing={5}
-                style={{ marginBottom: 15, marginLeft: 3 }}
-              >
-                <Button
-                  variant="contained"
-                  style={{ background: "red", color: "white" }}
-                  onClick={this.onDelete}
-                  disabled={loading}
-                >
-                  Delete
-                </Button>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Gender"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.gender}
+                      {!detail.gender && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Email"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.account.email}
+                      {!detail.account.email && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Phone"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.noHp}
+                      {!detail.noHp && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Address"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.address}
+                      {!detail.address && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Action"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={this.onDelete}
+                      disabled={loading}
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
 
               <Card className={classes.paper} variant="outlined">
+                <h3>requirements</h3>
                 <Grid
                   container
                   direction="row"
@@ -175,6 +235,21 @@ class UserDetil extends Component {
                 </Grid>
               </Card>
             </Card>
+
+            <Snackbar
+              open={this.state.alertShow}
+              autoHideDuration={3000}
+              onClose={this.hideAlert}
+            >
+              <Alert
+                onClose={this.hideAlert}
+                elevation={6}
+                variant="filled"
+                severity="error"
+              >
+                {error?.message}
+              </Alert>
+            </Snackbar>
           </div>
         </main>
       </div>
@@ -201,7 +276,10 @@ export default withStyles(styles, { withTheme: true })(
 
 const images = [
   {
-    text: "KTP",
+    url:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcP2g5kTwmc6NVjSaE2i8zU_etSlqlQobCjDhzYkYpWFdER7_M&usqp=CAU",
+  },
+  {
     url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcP2g5kTwmc6NVjSaE2i8zU_etSlqlQobCjDhzYkYpWFdER7_M&usqp=CAU",
   },

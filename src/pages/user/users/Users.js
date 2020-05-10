@@ -1,12 +1,13 @@
-import { Button, CircularProgress, withStyles } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import MUIDataTable from "mui-datatables";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import RingLoader from "react-spinners/RingLoader";
 import { findAll } from "../../../actions/users";
 import DrawerNav from "../../../components/drawer";
-import styles from "./styles";
+import { override, styles } from "./styles";
 
 class Users extends Component {
   constructor(props) {
@@ -78,10 +79,6 @@ class Users extends Component {
     this.setState({ params: { ...params, sort } });
   };
 
-  onRowClick = (rowData) => {
-    this.props.history.push(`/users/${rowData[0]}`);
-  };
-
   render() {
     const { classes, loading } = this.props;
     const { data, params, total, error } = this.state;
@@ -104,11 +101,10 @@ class Users extends Component {
       onChangeRowsPerPage: this.onChangeRowsPerPage,
       onSearchChange: this.onSearchChange,
       onColumnSortChange: this.onColumnSortChange,
-      onRowClick: this.onRowClick,
       textLabels: {
         body: {
           noMatch: loading ? (
-            <CircularProgress />
+            <RingLoader css={override} size={50} color={"#57BCFF"} />
           ) : (
             "Sorry, no matching records found"
           ),
@@ -132,28 +128,28 @@ class Users extends Component {
         label: "Gender",
         name: "gender",
       },
-      // {
-      //   name: "Detil",
-      //   options: {
-      //     empty: true,
-      //     customBodyRender: (value, tableMeta, updateValue) => {
-      //       return (
-      //         <Button
-      //           style={{ color: "white", background: "#57bcff" }}
-      //           // href="/transaction/id"
-      //           onClick={() => {
-      //             // this.props.history.push(
-      //             //   `/users/${tableMeta.tableData[0][0]}`
-      //             // );
-      //             console.log(tableMeta);
-      //           }}
-      //         >
-      //           View
-      //         </Button>
-      //       );
-      //     },
-      //   },
-      // },
+      {
+        label: "Phone",
+        name: "noHp",
+      },
+      {
+        name: "Detil",
+        options: {
+          empty: true,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button
+                style={{ color: "white", background: "#57bcff" }}
+                onClick={() => {
+                  this.props.history.push(`/users/${tableMeta.rowData[0]}`);
+                }}
+              >
+                View
+              </Button>
+            );
+          },
+        },
+      },
     ];
 
     return (

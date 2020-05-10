@@ -1,14 +1,15 @@
-import { Card, Grid, Typography, withStyles } from "@material-ui/core";
+import { Button, Card, Grid, Typography, withStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Alert from "@material-ui/lab/Alert";
 import React, { Component } from "react";
 import ImageZoom from "react-medium-image-zoom";
 import { connect } from "react-redux";
-import { deleteById, findById } from "../../../actions/partners";
+import { deleteById, findById } from "../../../actions/items";
 import DrawerNav from "../../../components/drawer";
 import styles from "./styles";
 
-class ItemsPendingDetil extends Component {
+class ItemDetail extends Component {
   constructor(props) {
     super(props);
 
@@ -17,11 +18,10 @@ class ItemsPendingDetil extends Component {
     this.state = {
       detail: {
         id: match.params.id,
-        age: "",
-        brand: "",
         name: "",
         price: "",
-        status: "",
+        brand: "",
+        variety: "",
         partner: { name: "" },
       },
       alertShow: false,
@@ -62,12 +62,13 @@ class ItemsPendingDetil extends Component {
   render() {
     const { classes, loading } = this.props;
     const { detail, error } = this.state;
+
     return (
       <div className={classes.root}>
         <DrawerNav />
         <main className={classes.content}>
           <div className={classes.toolbar}>
-            <h1>{"Pending Item Detil"}</h1>
+            <h1>{"Detail Item"}</h1>
             <Card className={classes.paper}>
               <Card className={classes.paper} variant="outlined">
                 <Grid
@@ -97,28 +98,104 @@ class ItemsPendingDetil extends Component {
 
               <Grid
                 container
+                item
                 direction={"row"}
                 justify={"flex-start"}
                 spacing={10}
                 style={{ marginTop: 20, marginBottom: 5 }}
               >
-                <Grid item>
-                  <Typography>{"ID"}</Typography>
-                  <Typography>{"Name"}</Typography>
-                  <Typography>{"Brand"}</Typography>
-                  <Typography>{"Status"}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"ID"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>{detail.id}</Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
-                  <Typography>{":"}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Name"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.name}
+                      {!detail.name && "Loading..."}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography>{detail.id}</Typography>
-                  <Typography>{detail.name}</Typography>
-                  <Typography>{detail.telp}</Typography>
-                  <Typography>{detail.address}</Typography>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Variety"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.variety}
+                      {!detail.variety && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Brand"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.brand}
+                      {!detail.brand && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Price"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.price}
+                      {!detail.price && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Outlet"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Typography>
+                      {detail.partner.outlet}
+                      {!detail.partner.outlet && "Loading..."}
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs>
+                  <Grid>
+                    <Typography style={{ fontWeight: "bold" }}>
+                      {"Action"}
+                    </Typography>
+                  </Grid>
+                  <Grid>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={this.onDelete}
+                      disabled={loading}
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Card>
@@ -144,12 +221,11 @@ class ItemsPendingDetil extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  deleteData: state.deletePendingItemById.data,
-  deleteError: state.deletePendingItemById.error,
-  data: state.findPendingItemById.data,
-  error: state.findPendingItemById.error,
-  loading:
-    state.findPendingItemById.loading || state.deletePendingItemById.loading,
+  deleteData: state.deleteItemById.data,
+  deleteError: state.deleteItemById.error,
+  data: state.findItemById.data,
+  error: state.findItemById.error,
+  loading: state.findItemById.loading || state.deleteItemById.loading,
 });
 
 const mapDispatchToProps = {
@@ -158,7 +234,7 @@ const mapDispatchToProps = {
 };
 
 export default withStyles(styles, { withTheme: true })(
-  connect(mapStateToProps, mapDispatchToProps)(ItemsPendingDetil)
+  connect(mapStateToProps, mapDispatchToProps)(ItemDetail)
 );
 
 export const items = [

@@ -5,10 +5,6 @@ import styles from "./styles";
 import ImageZoom from "react-medium-image-zoom";
 
 class ErrorPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { classes } = this.props;
     return (

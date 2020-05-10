@@ -48,7 +48,7 @@ class ForgotPassword extends Component {
               label="Email"
               type="email"
               id="email"
-              autoComplete="email"
+              autoComplete="off"
               autoFocus={true}
             />
             <Button

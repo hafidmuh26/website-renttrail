@@ -25,7 +25,7 @@ export function deletePendingItemById(state = defaultState, action) {
       };
     case DELETE_PENDINGITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -50,7 +50,7 @@ export function findPendingItemById(state = defaultState, action) {
       };
     case FIND_PENDINGITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };
@@ -100,7 +100,7 @@ export function savePendingItem(state = defaultState, action) {
       };
     case SAVE_PENDINGITEM_SUCCESS:
       return {
-        ...state,
+        data: action.data,
         loading: false,
         error: null,
       };

@@ -1,9 +1,7 @@
 import { List, ListItem, Typography, withStyles } from "@material-ui/core";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-import MoneyOffIcon from "@material-ui/icons/MoneyOff";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import PersonIcon from "@material-ui/icons/Person";
 import ScheduleIcon from "@material-ui/icons/Schedule";
